@@ -2,7 +2,7 @@ import { Project, ExperienceItem, SkillCategory, EducationInfo, AchievementItem 
 
 export const PERSONAL_INFO = {
   name: "Leandro Miguel Pabatao",
-  title: "Computer Science Student & Software Developer",
+  headline: "Computer Science Student & Software Developer",
   institution: "Cebu Institute of Technology – University",
   yearLevel: "Third-Year BS Computer Science",
   location: "Cebu City, Philippines",
@@ -11,6 +11,7 @@ export const PERSONAL_INFO = {
   email: "leandromiguel.pabatao@gmail.com",
   github: "https://github.com/Leandrozxc",
   linkedin: "https://linkedin.com/in/leandro-miguel-pabatao",
+  resumeUrl: "#contact",
   journey: [
     { label: "Cebu City", note: "CIT-U" },
     { label: "3rd Year BSCS", note: "Academic foundation" },
@@ -57,6 +58,10 @@ export const PROJECTS: Project[] = [
     role: "Core Developer (OCR Pipeline, Fuzzy Matching & Frontend)",
     stack: ["JavaScript", "PaddleOCR", "OpenCV", "Fuse.js", "SQLite"],
     problem: "The Philippine Generics Act (RA 6675) has been in law since 1988, yet only 41% of patients are offered generic equivalents at pharmacy counters. When pharmacies fail to offer them, 75% of patients do not ask, paying up to 80% more for identical branded formulations.",
+    keyDecisions: [
+      "Offline OCR scanning pipeline using PaddleOCR & OpenCV with adaptive contrast for low-light prescription photos",
+      "Fuse.js fuzzy matching engine tolerant of character misreadings, mapped directly to FDA drug records"
+    ],
     solution: [
       "Offline Prescription Scanner: Point camera at medicine boxes, blister packs, or prescription slips to extract medication names via PaddleOCR.",
       "Noise & Skew Correction: Image preprocessing pipeline built with OpenCV to handle low-light, high-contrast, or tilted prescription photos.",
@@ -82,6 +87,10 @@ export const PROJECTS: Project[] = [
     role: "Desktop Software Engineer & Fullstack Contributor",
     stack: ["React", "TypeScript", "Tauri", "Rust", "SQLite", "Tailwind CSS"],
     problem: "Operating university photobooths across multi-day campus festivals involves intense cash flow, high transactional velocity, and complex organization revenue cuts. Spotty campus Wi-Fi rendered cloud-based spreadsheets unusable, leading to reconciliation errors.",
+    keyDecisions: [
+      "Native desktop architecture using Tauri & Rust IPC with zero-network SQLite persistence",
+      "Automated financial calculation engine computing gross income, Rotaract revenue split, and partner frame compensation"
+    ],
     solution: [
       "Local-First Desktop Runtime: Architected with Tauri and Rust, running as a lightweight native executable with zero internet connectivity requirements.",
       "Instant Sales & Expense Entry: Fast keyboard-driven checkout screen with item modifiers, extra copies, and partner organization frame selection.",
@@ -107,6 +116,10 @@ export const PROJECTS: Project[] = [
     role: "Frontend Engineer & UI Designer",
     stack: ["C#", ".NET 8", "Blazor", "Tailwind CSS", "JavaScript"],
     problem: "Standard e-commerce templates often suffer from sluggish catalog filters, disconnected URL states, and excessive JavaScript bundles that degrade user shopping flow and checkout clarity.",
+    keyDecisions: [
+      "Blazor InteractiveServer architecture with real-time UI rendering via SignalR circuits",
+      "Scoped reactive shopping bag with variant consolidation, stock limits, and URL query state persistence"
+    ],
     solution: [
       "Blazor InteractiveServer Architecture: Real-time UI rendering via SignalR circuits with zero frontend framework churn.",
       "URL-Based Query Synchronization: Category filters, keyword searches, and sorting mechanisms persist seamlessly to browser history URLs for shareability.",
@@ -133,6 +146,10 @@ export const PROJECTS: Project[] = [
     role: "Frontend Developer & System Designer",
     stack: ["JavaScript (ES6+)", "Tailwind CSS", "SheetJS (XLSX)", "HTML5", "Vercel"],
     problem: "University students and departmental faculty face friction navigating fragmented paper or PDF schedules to verify instructor availability, locate consultation rooms, or identify classroom conflicts across academic blocks.",
+    keyDecisions: [
+      "Live schedule tracking engine synchronized to Asia/Manila (PHT) with in-session countdowns",
+      "Zero-backend client-side Excel parser powered by SheetJS with automatic room conflict detection"
+    ],
     solution: [
       "Instant Autocomplete & Search: Keyboard-accessible search by faculty surname, course code, or room with full-time/part-time employment badges.",
       "Live Schedule Highlighting: Real-time clock synchronized to Asia/Manila (PHT) automatically detecting in-session classes, active office duties, and period countdowns.",
@@ -160,9 +177,9 @@ export const EXPERIENCES: ExperienceItem[] = [
     type: "Technical Experience",
     description: "Delivering on-site photobooth operations for university events while contributing to internal software workflows, photo capture pipelines, and real-time technical troubleshooting.",
     keyContributions: [
-      "Operate and support photobooth services for university gatherings, managing hardware assembly, camera positioning, live photo capture, high-speed printing, and customer assistance.",
-      "Contribute to the development and maintenance of the internal photobooth software, assisting with the image capture, preview, and print spooling workflow.",
-      "Perform live on-site technical troubleshooting during peak event hours, maintaining continuous service uptime under high transaction volumes."
+      "Event Photobooth Operations: Manage hardware assembly, camera alignment, live capture, high-speed thermal printing, and customer support for university festivals.",
+      "Software & Print Workflow: Contribute to internal photobooth software stability, maintaining image capture, live preview rendering, and print spooling queues.",
+      "Live Technical Troubleshooting: Rapidly diagnose and resolve real-time hardware, driver, and software exceptions during peak-volume event sessions to sustain zero service downtime."
     ]
   },
   {
@@ -173,9 +190,9 @@ export const EXPERIENCES: ExperienceItem[] = [
     type: "Campus Support",
     description: "Providing administrative and technical support for departmental operations, faculty requirements, and instructional office workflows.",
     keyContributions: [
-      "Deliver technical and administrative support for department operations, document processing, and faculty coordination.",
-      "Assist department faculty and personnel with digital resource management and day-to-day administrative tasks.",
-      "Effectively balance professional technical responsibilities with rigorous third-year computer science coursework."
+      "Department Technical Support: Provide hardware, software, and administrative support for departmental workflows, document archiving, and classroom equipment readiness.",
+      "Faculty & Operations Assistance: Assist faculty members with digital instructional assets, record collation, and administrative scheduling coordination.",
+      "Work-Academic Balance: Dependably maintained rigorous technical responsibilities alongside demanding third-year computer science coursework."
     ]
   },
   {
@@ -186,9 +203,9 @@ export const EXPERIENCES: ExperienceItem[] = [
     type: "Leadership",
     description: "Spearheading industry linkages, external partnerships, and sponsorship coordination for student technology initiatives and campus events.",
     keyContributions: [
-      "Assist in establishing and maintaining collaborative partnerships with external tech organizations, industry professionals, and prospective event sponsors.",
-      "Coordinate networking initiatives and professional linkage activities connecting computer studies students with broader tech ecosystems.",
-      "Contribute to conceptualizing and organizing student-focused technical workshops, career seminars, and developer hackathons."
+      "Industry & Corporate Linkages: Establish and cultivate collaborative relationships with tech companies, alumni engineers, and corporate event sponsors.",
+      "Community Outreach: Coordinate networking sessions, sponsor engagements, and tech symposium linkages for students across the College of Computer Studies.",
+      "Event Leadership: Co-lead the planning and execution of student workshops, tech seminars, and development hackathons."
     ]
   },
   {
@@ -199,8 +216,8 @@ export const EXPERIENCES: ExperienceItem[] = [
     type: "Leadership",
     description: "Managed logistical preparations, resource inventory, and execution for departmental student body assemblies and activities.",
     keyContributions: [
-      "Assisted in coordinating, setting up, and managing logistical requirements for student organization assemblies, workshops, and conventions.",
-      "Supported resource tracking, equipment requisition, and stage operations to guarantee seamless event execution."
+      "Event Operations & Staging: Coordinated venue logistics, technical audio-visual setup, and stage flow for major student assemblies and technical conferences.",
+      "Resource & Asset Management: Managed inventory tracking, hardware requisition, and day-of-event contingency support for departmental activities."
     ]
   }
 ];

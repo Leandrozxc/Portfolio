@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { SpotlightCard } from './SpotlightCard';
-import { ArrowUpRight, X, ExternalLink, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, X, ExternalLink, AlertCircle, CheckCircle2, Github, Cpu } from 'lucide-react';
 import { PROJECTS } from '../data/portfolio';
 import { Project } from '../types';
 
@@ -48,6 +48,9 @@ export const Projects: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
               Featured Software Projects
             </h2>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+              Production utilities, desktop tools, and civic platforms engineered with modern stacks.
+            </p>
           </motion.div>
 
           {/* Filter Tabs */}
@@ -91,41 +94,49 @@ export const Projects: React.FC = () => {
                 exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.97 }}
                 transition={{ duration: prefersReducedMotion ? 0.01 : 0.3, ease: [0.16, 1, 0.3, 1] }}
               >
-                <SpotlightCard
-                  onClick={() => setActiveProject(project)}
-                  className="p-6 cursor-pointer group flex flex-col justify-between h-full min-h-[290px] focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 outline-none"
-                  tabIndex={0}
-                  role="button"
-                  aria-haspopup="dialog"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setActiveProject(project);
-                    }
-                  }}
-                >
+                <SpotlightCard className="p-6 flex flex-col justify-between h-full min-h-[320px] focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 outline-none group">
                   <div>
-                    <div className="flex items-center justify-between gap-2 mb-4">
+                    {/* Top Row: Year, Category & Status Badge */}
+                    <div className="flex items-center justify-between gap-2 mb-3">
                       <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
                         {project.year} &bull; {project.category}
                       </span>
-                      <motion.div
-                        whileHover={prefersReducedMotion ? {} : { scale: 1.1 }}
-                        className="w-7 h-7 rounded-full flex items-center justify-center bg-neutral-100 dark:bg-white/[0.06] text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors"
-                      >
-                        <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </motion.div>
+                      {project.liveUrl && (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                          Live Demo
+                        </span>
+                      )}
                     </div>
 
+                    {/* Title & Tagline */}
                     <h3 className="text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 mb-1">
                       {project.title}
                     </h3>
                     <p className="text-xs font-medium text-blue-600 dark:text-blue-400 mb-3 tracking-tight">
                       {project.tagline}
                     </p>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal mb-3">
+
+                    {/* Summary */}
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal mb-4">
                       {project.summary}
                     </p>
+
+                    {/* Scannable Key Decisions for Technical Recruiters */}
+                    {project.keyDecisions && (
+                      <div className="space-y-1.5 mb-4 p-3 rounded-xl bg-neutral-100/70 dark:bg-white/[0.03] border border-neutral-200/60 dark:border-white/[0.04]">
+                        <div className="flex items-center gap-1.5 text-[11px] font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
+                          <Cpu size={12} className="text-blue-500" />
+                          <span>Core Technical Decisions:</span>
+                        </div>
+                        {project.keyDecisions.map((kd, i) => (
+                          <div key={i} className="text-xs text-neutral-600 dark:text-neutral-400 flex items-start gap-1.5 leading-relaxed">
+                            <span className="text-neutral-400 dark:text-neutral-600 mt-0.5">&bull;</span>
+                            <span>{kd}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -135,15 +146,56 @@ export const Projects: React.FC = () => {
                         <span>{project.statusNote}</span>
                       </div>
                     )}
-                    <div className="pt-4 border-t border-neutral-200/80 dark:border-white/[0.06] flex flex-wrap gap-1.5">
+
+                    {/* Tech Stack Pills */}
+                    <div className="pt-3 border-t border-neutral-200/80 dark:border-white/[0.06] flex flex-wrap gap-1.5 mb-4">
                       {project.stack.map((tech) => (
                         <span
                           key={tech}
-                          className="text-[11px] px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-white/[0.04] text-neutral-600 dark:text-neutral-400 font-mono"
+                          className="text-[11px] px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-white/[0.04] text-neutral-700 dark:text-neutral-300 font-mono font-medium"
                         >
                           {tech}
                         </span>
                       ))}
+                    </div>
+
+                    {/* Direct Recruiter Actions */}
+                    <div className="flex items-center justify-between gap-2 pt-2">
+                      <button
+                        onClick={() => setActiveProject(project)}
+                        aria-label={`Open architecture case study for ${project.title}`}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        <span>Deep Dive Specs</span>
+                        <ArrowUpRight size={13} />
+                      </button>
+
+                      <div className="flex items-center gap-2">
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`View ${project.title} GitHub repository`}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-neutral-100 dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
+                          >
+                            <Github size={13} />
+                            <span>Code</span>
+                          </a>
+                        )}
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Open live deployment of ${project.title}`}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-600 text-white hover:bg-blue-500 transition-colors shadow-sm"
+                          >
+                            <ExternalLink size={12} />
+                            <span>Live</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </SpotlightCard>
@@ -152,7 +204,7 @@ export const Projects: React.FC = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Apple-style Interactive Sheet/Modal */}
+        {/* Detailed Architecture Sheet / Modal */}
         <AnimatePresence>
           {activeProject && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
@@ -199,9 +251,9 @@ export const Projects: React.FC = () => {
                   {/* Problem Statement */}
                   <div>
                     <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
-                      Problem Addressed
+                      The Problem Being Addressed
                     </h4>
-                    <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal bg-neutral-50 dark:bg-white/[0.02] p-3.5 rounded-xl border border-neutral-200/60 dark:border-white/[0.04]">
+                    <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal bg-neutral-50 dark:bg-white/[0.02] p-4 rounded-xl border border-neutral-200/60 dark:border-white/[0.04]">
                       {activeProject.problem}
                     </p>
                   </div>
@@ -209,22 +261,22 @@ export const Projects: React.FC = () => {
                   {/* Solution & Key Functionality */}
                   <div>
                     <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
-                      Solution & Key Functionality
+                      Solution Architecture & Features
                     </h4>
-                    <ul className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300 font-normal">
+                    <ul className="space-y-2.5 text-sm text-neutral-700 dark:text-neutral-300 font-normal">
                       {activeProject.solution.map((item, i) => (
                         <li key={i} className="flex items-start gap-2.5">
-                          <CheckCircle2 size={15} className="text-blue-500 mt-0.5 shrink-0" />
+                          <CheckCircle2 size={16} className="text-blue-500 mt-0.5 shrink-0" />
                           <span className="leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* Key Highlights */}
+                  {/* Engineering Highlights */}
                   <div>
                     <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
-                      Engineering Highlights
+                      Key Technical Takeaways
                     </h4>
                     <ul className="space-y-1.5 text-xs text-neutral-600 dark:text-neutral-400 font-normal">
                       {activeProject.highlights.map((h, i) => (
@@ -239,13 +291,13 @@ export const Projects: React.FC = () => {
                   {/* Tech Stack */}
                   <div>
                     <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
-                      Technologies Used
+                      Technologies & Libraries
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {activeProject.stack.map((t) => (
                         <span
                           key={t}
-                          className="text-xs px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-white/[0.06] text-neutral-800 dark:text-neutral-200 font-mono"
+                          className="text-xs px-2.5 py-1 rounded-lg bg-neutral-100 dark:bg-white/[0.06] text-neutral-800 dark:text-neutral-200 font-mono font-medium"
                         >
                           {t}
                         </span>
@@ -255,16 +307,16 @@ export const Projects: React.FC = () => {
 
                   {/* Status Note disclaimer if any */}
                   {activeProject.statusNote && (
-                    <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-400 flex items-start gap-2">
+                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-400 flex items-start gap-2.5">
                       <AlertCircle size={15} className="shrink-0 mt-0.5" />
-                      <span>{activeProject.statusNote}</span>
+                      <span className="leading-relaxed">{activeProject.statusNote}</span>
                     </div>
                   )}
 
                   {/* Modal Footer with Role and Links */}
                   <div className="pt-4 border-t border-neutral-200 dark:border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <span className="text-xs text-neutral-500 font-medium">
-                      Role: <span className="text-neutral-800 dark:text-neutral-200">{activeProject.role}</span>
+                      My Role: <span className="text-neutral-900 dark:text-neutral-100 font-semibold">{activeProject.role}</span>
                     </span>
                     <div className="flex items-center gap-3">
                       {activeProject.githubUrl && (
@@ -274,10 +326,7 @@ export const Projects: React.FC = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium bg-neutral-100 dark:bg-white/[0.08] text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-blue-500"
                         >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                            <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                          </svg>
+                          <Github size={14} />
                           <span>GitHub Repository</span>
                         </a>
                       )}

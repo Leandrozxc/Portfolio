@@ -26,6 +26,9 @@ export const Experience: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
               Experience & Leadership
             </h2>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+              Technical contributions, campus operations, and student organization leadership.
+            </p>
           </motion.div>
 
           {/* Sub-tabs for filter */}
@@ -36,7 +39,8 @@ export const Experience: React.FC = () => {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative px-3.5 py-1 rounded-full font-medium transition-colors duration-200 ${
+                  aria-pressed={isSelected}
+                  className={`relative px-3.5 py-1 rounded-full font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-blue-500 ${
                     isSelected
                       ? 'text-black dark:text-white'
                       : 'text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200'
@@ -82,7 +86,7 @@ export const Experience: React.FC = () => {
                       {exp.organization}
                     </span>
                     <span className="text-neutral-300 dark:text-neutral-700">&bull;</span>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-white/[0.05] text-neutral-600 dark:text-neutral-400 font-medium">
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-white/[0.05] text-neutral-700 dark:text-neutral-300 font-medium">
                       {exp.type}
                     </span>
                   </div>
@@ -92,12 +96,25 @@ export const Experience: React.FC = () => {
                   </p>
 
                   <ul className="space-y-2 border-t border-neutral-200/80 dark:border-white/[0.06] pt-3.5">
-                    {exp.keyContributions.map((item, i) => (
-                      <li key={i} className="text-xs text-neutral-600 dark:text-neutral-300 flex items-start gap-2.5 leading-relaxed">
-                        <span className="text-neutral-400 dark:text-neutral-600 mt-1">&ndash;</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
+                    {exp.keyContributions.map((item, i) => {
+                      const parts = item.split(': ');
+                      const hasHeader = parts.length > 1;
+                      return (
+                        <li key={i} className="text-xs text-neutral-600 dark:text-neutral-300 flex items-start gap-2.5 leading-relaxed">
+                          <span className="text-blue-500 shrink-0 mt-1">&bull;</span>
+                          <span>
+                            {hasHeader ? (
+                              <>
+                                <strong className="font-semibold text-neutral-900 dark:text-neutral-100">{parts[0]}:</strong>{' '}
+                                {parts.slice(1).join(': ')}
+                              </>
+                            ) : (
+                              item
+                            )}
+                          </span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </SpotlightCard>
               </motion.div>

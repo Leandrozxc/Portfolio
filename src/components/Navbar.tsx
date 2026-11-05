@@ -74,7 +74,11 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
           }`}
         >
           <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.6)] shrink-0" />
-          <span className="hidden sm:inline font-semibold truncate max-w-[150px] md:max-w-none">{PERSONAL_INFO.name}</span>
+          <span className={`hidden sm:inline font-semibold truncate max-w-[150px] md:max-w-none ${
+            isScrolled ? 'text-white' : 'text-neutral-900 dark:text-neutral-100'
+          }`}>
+            {PERSONAL_INFO.name}
+          </span>
         </button>
 
         <div className={`h-3.5 w-px transition-colors hidden sm:block shrink-0 ${

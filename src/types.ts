@@ -10,6 +10,7 @@ export interface Project {
   problem: string;
   solution: string[];
   highlights: string[];
+  keyDecisions?: string[];
   githubUrl: string;
   liveUrl?: string;
   isFeatured?: boolean;
