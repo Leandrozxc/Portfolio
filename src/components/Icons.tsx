@@ -43,3 +43,8 @@ export const LinkedinIcon: React.FC<IconProps> = ({ size = 16, className = '', .
   </svg>
 );
 
+// Convenient aliases for drop-in replacement with Lucide-style naming
+export const Github = GithubIcon;
+export const Linkedin = LinkedinIcon;
+
+

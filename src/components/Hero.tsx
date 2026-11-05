@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, Variants, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, ChevronRight, MapPin, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowUpRight, ChevronRight, MapPin, Mail } from 'lucide-react';
+import { Github, Linkedin } from './Icons';
 import { PERSONAL_INFO } from '../data/portfolio';
 
 export const Hero: React.FC = () => {

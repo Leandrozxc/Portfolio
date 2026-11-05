@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { SpotlightCard } from './SpotlightCard';
-import { ArrowUpRight, X, ExternalLink, AlertCircle, CheckCircle2, Github, Cpu } from 'lucide-react';
+import { ArrowUpRight, X, ExternalLink, AlertCircle, CheckCircle2, Cpu } from 'lucide-react';
+import { Github } from './Icons';
 import { PROJECTS } from '../data/portfolio';
 import { Project } from '../types';
 

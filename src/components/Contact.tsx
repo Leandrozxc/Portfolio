@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { SpotlightCard } from './SpotlightCard';
-import { Mail, Check, Copy, ArrowUpRight, Github, Linkedin, FileText } from 'lucide-react';
+import { Mail, Check, Copy, ArrowUpRight, FileText } from 'lucide-react';
+import { Github, Linkedin } from './Icons';
 import { PERSONAL_INFO } from '../data/portfolio';
 
 export const Contact: React.FC = () => {
