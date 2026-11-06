@@ -3,12 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Leandro Miguel Pabatao — Portfolio</title>
+    <title>Leandro Miguel Pabatao — Software Developer & CS Student</title>
+    
+    <!-- SEO & Social Previews -->
+    <meta name="description" content="Portfolio of Leandro Miguel Pabatao — Third-Year BS Computer Science student at Cebu Institute of Technology – University. Software development, systems engineering, and civic tech." />
+    <meta name="author" content="Leandro Miguel Pabatao" />
+    <meta property="og:title" content="Leandro Miguel Pabatao — Software Developer & CS Student" />
+    <meta property="og:description" content="Third-year Computer Science student at CIT-U specializing in software development, desktop tools, and civic technology." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Leandro Miguel Pabatao — Software Developer Portfolio" />
+    <meta name="twitter:description" content="Third-year Computer Science student at CIT-U specializing in software development, desktop tools, and civic technology." />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+
+    <!-- Minimalist SVG Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='38' fill='%232997ff'/></svg>" />
+
+    <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Zero-Flash Theme Script (FOUC Prevention) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme');
+          var isDark = saved ? saved === 'dark' : true;
+          if (!isDark) {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.documentElement.style.backgroundColor = '#fafafa';
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+            document.documentElement.style.backgroundColor = '#000000';
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body class="bg-black text-neutral-100 antialiased selection:bg-neutral-800 selection:text-white">
+  <body class="bg-neutral-50 dark:bg-black text-neutral-900 dark:text-neutral-100 antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
