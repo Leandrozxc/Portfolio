@@ -22,8 +22,11 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
   ];
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const scrolled = window.scrollY > 30;
+      setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
 
       // Section tracking
       const sections = ['about', 'projects', 'experience', 'skills', 'contact'];
@@ -32,15 +35,27 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= 220 && rect.bottom >= 220) {
-            setActiveSection(section);
+            setActiveSection((prev) => (prev !== section ? section : prev));
             break;
           }
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const scrollTo = (id: string) => {
@@ -67,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll to top of portfolio"
-          className={`flex items-center gap-2 px-2 sm:px-3 py-1 text-xs md:text-sm font-semibold tracking-tight transition-colors rounded-full focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 ${
+          className={`relative flex items-center gap-2 px-2 sm:px-3 py-1.5 text-xs md:text-sm font-semibold tracking-tight transition-colors rounded-full focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 after:absolute after:-inset-1.5 after:content-[''] ${
             isScrolled
               ? 'text-white hover:text-neutral-200'
               : 'text-neutral-900 dark:text-neutral-100 hover:text-black dark:hover:text-white'
@@ -94,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
                 key={item.id}
                 onClick={() => scrollTo(item.id)}
                 aria-current={isActive ? 'page' : undefined}
-                className={`relative px-2 sm:px-2.5 md:px-3.5 py-1 text-[11px] sm:text-xs md:text-sm tracking-tight transition-colors duration-200 rounded-full font-medium focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-1 ${
+                className={`relative px-2 sm:px-2.5 md:px-3.5 py-1.5 text-[11px] sm:text-xs md:text-sm tracking-tight transition-colors duration-200 rounded-full font-medium focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-1 after:absolute after:-inset-1 after:content-[''] ${
                   isScrolled
                     ? isActive
                       ? 'text-white'
@@ -125,11 +140,11 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
           isScrolled ? 'bg-white/15' : 'bg-neutral-300 dark:bg-neutral-800'
         }`} />
 
-        {/* Theme Toggle */}
+        {/* Theme Toggle with Ergonomic 44px Hit-Area */}
         <button
           onClick={() => setDarkMode(!darkMode)}
           aria-label={darkMode ? 'Switch to light theme' : 'Switch to dark theme'}
-          className={`p-1.5 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-1 shrink-0 ${
+          className={`relative p-2 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-1 shrink-0 after:absolute after:-inset-2 after:content-[''] ${
             isScrolled
               ? 'text-neutral-300 hover:text-white hover:bg-white/10'
               : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200/60 dark:hover:bg-white/10'
