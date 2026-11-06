@@ -190,7 +190,7 @@ export const Projects: React.FC = () => {
                     <div>
                       {/* Top Row: Year, Category & Status Badge */}
                       <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                        <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
                           {project.year} &bull; {project.category}
                         </span>
                         {project.liveUrl && (
@@ -343,7 +343,7 @@ export const Projects: React.FC = () => {
 
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <div>
-                    <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                    <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
                       {activeProject.year} &bull; {activeProject.category}
                     </span>
                     <h3 id="project-modal-title" className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 mt-1 break-words">

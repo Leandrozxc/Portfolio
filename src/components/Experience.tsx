@@ -76,7 +76,7 @@ export const Experience: React.FC = () => {
                     <h3 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
                       {exp.role}
                     </h3>
-                    <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500 shrink-0">
+                    <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400 shrink-0">
                       {exp.period}
                     </span>
                   </div>

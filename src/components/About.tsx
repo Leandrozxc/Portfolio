@@ -38,7 +38,7 @@ export const About: React.FC = () => {
             >
               <SpotlightCard className="p-7 h-full flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-2 mb-3.5 text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                  <div className="flex items-center gap-2 mb-3.5 text-xs font-mono text-neutral-500 dark:text-neutral-400">
                     <Building2 size={13} className="text-blue-500" />
                     <span>Cebu Institute of Technology – University</span>
                   </div>
@@ -52,7 +52,7 @@ export const About: React.FC = () => {
 
                 <div className="mt-8 pt-4 border-t border-neutral-200/80 dark:border-white/[0.06] flex items-center justify-between text-xs text-neutral-500">
                   <span className="font-medium text-neutral-700 dark:text-neutral-300">College of Computer Studies</span>
-                  <span className="font-mono text-neutral-400">CIT-U &bull; 2027</span>
+                  <span className="font-mono text-neutral-500 dark:text-neutral-400">CIT-U &bull; 2027</span>
                 </div>
               </SpotlightCard>
             </motion.div>
@@ -135,7 +135,7 @@ export const About: React.FC = () => {
                         <Trophy size={12} />
                         <span>{achievement.title}</span>
                       </span>
-                      <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
+                      <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
                         {achievement.year}
                       </span>
                     </div>
@@ -148,7 +148,7 @@ export const About: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-neutral-200/80 dark:border-white/[0.06] text-[11px] text-neutral-400 dark:text-neutral-500 font-mono">
+                  <div className="mt-4 pt-3 border-t border-neutral-200/80 dark:border-white/[0.06] text-[11px] text-neutral-500 dark:text-neutral-400 font-mono">
                     Track: {achievement.category}
                   </div>
                 </SpotlightCard>

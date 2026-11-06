@@ -43,15 +43,19 @@ export const Contact: React.FC = () => {
             {/* Interactive Email Bar */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-2 pl-4 rounded-2xl bg-neutral-100 dark:bg-white/[0.04] border border-neutral-200/80 dark:border-white/[0.08] mb-8">
               <div className="flex items-center gap-2.5 text-sm font-mono text-neutral-800 dark:text-neutral-200 truncate">
-                <Mail size={16} className="text-neutral-400 shrink-0" />
+                <Mail size={16} className="text-neutral-500 dark:text-neutral-400 shrink-0" />
                 <span className="truncate">{PERSONAL_INFO.email}</span>
               </div>
 
               <div className="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+                <span className="sr-only" role="status" aria-live="polite">
+                  {copied ? 'Email address copied to clipboard' : ''}
+                </span>
+
                 <motion.button
                   whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
                   onClick={handleCopy}
-                  aria-label="Copy email address to clipboard"
+                  aria-label={copied ? 'Email address copied to clipboard' : 'Copy email address to clipboard'}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-white/10 hover:bg-neutral-50 dark:hover:bg-white/15 text-neutral-900 dark:text-white border border-neutral-200/60 dark:border-white/10 transition-colors shadow-sm focus-visible:outline-2 focus-visible:outline-blue-500"
                 >
                   <AnimatePresence mode="wait">
