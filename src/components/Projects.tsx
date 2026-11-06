@@ -105,11 +105,11 @@ export const Projects: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Filter Tabs */}
+          {/* Filter Tabs - Horizontal swipe on mobile, wrap on desktop */}
           <div
             role="tablist"
             aria-label="Filter projects by domain"
-            className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl sm:rounded-full bg-neutral-100 dark:bg-white/[0.04] border border-neutral-200/80 dark:border-white/[0.06] text-xs self-start sm:self-auto"
+            className="flex items-center gap-1.5 p-1 rounded-2xl sm:rounded-full bg-neutral-100 dark:bg-white/[0.04] border border-neutral-200/80 dark:border-white/[0.06] text-xs self-stretch sm:self-auto overflow-x-auto max-w-full touch-manipulation [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap"
           >
             {categories.map((cat) => {
               const isSelected = selectedFilter === cat;
@@ -121,7 +121,7 @@ export const Projects: React.FC = () => {
                   aria-selected={isSelected}
                   aria-controls="projects-grid"
                   onClick={() => setSelectedFilter(cat)}
-                  className={`relative min-h-[38px] sm:min-h-[32px] px-3.5 py-1.5 rounded-full font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-1 after:absolute after:-inset-1 after:content-[''] ${
+                  className={`relative whitespace-nowrap shrink-0 min-h-[38px] sm:min-h-[32px] px-3.5 py-1.5 rounded-full font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-1 after:absolute after:-inset-1 after:content-[''] ${
                     isSelected
                       ? 'text-black dark:text-white'
                       : 'text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200'
@@ -297,11 +297,11 @@ export const Projects: React.FC = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Detailed Architecture Sheet / Modal */}
+        {/* Detailed Architecture Sheet / Modal - Responsive Bottom Sheet on Mobile, Centered Modal on Desktop */}
         <AnimatePresence>
           {activeProject && (
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+              className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6"
               role="dialog"
               aria-modal="true"
               aria-labelledby="project-modal-title"
@@ -317,25 +317,39 @@ export const Projects: React.FC = () => {
                 className="fixed inset-0 bg-black/60 backdrop-blur-md"
               />
 
-              {/* Modal window */}
+              {/* Modal / Bottom Sheet Window */}
               <motion.div
                 ref={modalRef}
                 tabIndex={-1}
-                initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.96, y: prefersReducedMotion ? 0 : 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.96, y: prefersReducedMotion ? 0 : 8 }}
+                initial={{
+                  opacity: 0,
+                  y: prefersReducedMotion ? 0 : 32,
+                  scale: prefersReducedMotion ? 1 : 0.98,
+                }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{
+                  opacity: 0,
+                  y: prefersReducedMotion ? 0 : 28,
+                  scale: prefersReducedMotion ? 1 : 0.98,
+                }}
                 transition={{ duration: prefersReducedMotion ? 0.01 : 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl text-left outline-none"
+                className="relative z-10 w-full max-w-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto bg-white dark:bg-neutral-900 border-t sm:border border-neutral-200 dark:border-white/10 rounded-t-[28px] sm:rounded-3xl p-5 sm:p-8 shadow-2xl text-left outline-none touch-manipulation overscroll-contain pb-8 sm:pb-8"
               >
+                {/* Mobile Drag Indicator Handle */}
+                <div
+                  className="w-12 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700 mx-auto -mt-1 mb-4 sm:hidden shrink-0"
+                  aria-hidden="true"
+                />
+
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <div>
                     <span className="text-xs font-mono text-neutral-400 dark:text-neutral-500">
                       {activeProject.year} &bull; {activeProject.category}
                     </span>
-                    <h3 id="project-modal-title" className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 mt-1 break-words">
+                    <h3 id="project-modal-title" className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 mt-1 break-words">
                       {activeProject.title}
                     </h3>
-                    <p id="project-modal-desc" className="text-sm font-medium text-blue-600 dark:text-blue-400 mt-0.5 break-words">
+                    <p id="project-modal-desc" className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 mt-0.5 break-words">
                       {activeProject.tagline}
                     </p>
                   </div>
@@ -416,17 +430,17 @@ export const Projects: React.FC = () => {
                   )}
 
                   {/* Modal Footer with Role and Links */}
-                  <div className="pt-4 border-t border-neutral-200 dark:border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="pt-4 border-t border-neutral-200 dark:border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
                     <span className="text-xs text-neutral-500 font-medium">
                       My Role: <span className="text-neutral-900 dark:text-neutral-100 font-semibold">{activeProject.role}</span>
                     </span>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                       {activeProject.githubUrl && (
                         <a
                           href={activeProject.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="relative inline-flex items-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl text-xs font-medium bg-neutral-100 dark:bg-white/[0.08] text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 after:absolute after:-inset-1 after:content-['']"
+                          className="relative inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:py-1.5 rounded-xl text-xs font-medium bg-neutral-100 dark:bg-white/[0.08] text-neutral-800 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 after:absolute after:-inset-1 after:content-['']"
                         >
                           <Github size={14} />
                           <span>GitHub Repository</span>
@@ -437,7 +451,7 @@ export const Projects: React.FC = () => {
                           href={activeProject.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="relative inline-flex items-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl text-xs font-medium bg-blue-600 text-white hover:bg-blue-500 transition-colors shadow-sm focus-visible:outline-2 focus-visible:outline-blue-500 after:absolute after:-inset-1 after:content-['']"
+                          className="relative inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:py-1.5 rounded-xl text-xs font-medium bg-blue-600 text-white hover:bg-blue-500 transition-colors shadow-sm focus-visible:outline-2 focus-visible:outline-blue-500 after:absolute after:-inset-1 after:content-['']"
                         >
                           <span>Live Deployment</span>
                           <ExternalLink size={13} />

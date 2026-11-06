@@ -61,18 +61,20 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const top = element.getBoundingClientRect().top + window.pageYOffset - 80;
+      // Responsive offset: 64px on mobile, 80px on desktop
+      const offset = typeof window !== 'undefined' && window.innerWidth < 640 ? 64 : 80;
+      const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 py-3 sm:py-4 pointer-events-none transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-2.5 sm:px-4 py-2.5 sm:py-4 pointer-events-none transition-all duration-300">
       <motion.nav
         initial={{ y: prefersReducedMotion ? 0 : -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: prefersReducedMotion ? 0.01 : 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className={`pointer-events-auto flex items-center gap-1 sm:gap-2 md:gap-3 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full border transition-all duration-300 max-w-full overflow-x-auto ${
+        className={`pointer-events-auto flex items-center gap-1 sm:gap-2 md:gap-3 px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border transition-all duration-300 max-w-full overflow-x-auto touch-manipulation [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
           isScrolled
             ? 'bg-neutral-950/85 dark:bg-black/85 border-white/15 backdrop-blur-xl shadow-xl shadow-black/25 text-white'
             : 'bg-white/75 dark:bg-neutral-900/40 border-neutral-200/80 dark:border-white/[0.08] backdrop-blur-md text-neutral-900 dark:text-neutral-100 shadow-sm dark:shadow-none'
